@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,12 +29,16 @@ public class HttpRequest {
             for (String pair : pairs) {
                 String[] keyValue = pair.split("=", 2);
                 if (keyValue.length == 2) {
-                    queryParams.put(keyValue[0], keyValue[1]);
+                    queryParams.put(decode(keyValue[0]), decode(keyValue[1]));
                 } else if (keyValue.length == 1) {
-                    queryParams.put(keyValue[0], "");
+                    queryParams.put(decode(keyValue[0]), "");
                 }
             }
         }
+    }
+
+    private String decode(String value) {
+        return URLDecoder.decode(value, StandardCharsets.UTF_8);
     }
 
     /**
@@ -43,10 +50,14 @@ public class HttpRequest {
         return queryParams.get(key);
     }
 
+    public Map<String, String> getQueryParams() {
+        return Collections.unmodifiableMap(queryParams);
+    }
+
     /**
      * Kept for backward compatibility.
      */
     public String getValue(String values) {
-        return values;
+        return getValues(values);
     }
 }

@@ -1,13 +1,13 @@
 package com.example.demo;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.example.demo.app.ExampleApp;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
-@SpringBootApplication
 public class MicroframeworksApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MicroframeworksApplication.class, args);
-	}
+    public static void main(String[] args) throws IOException, URISyntaxException {
+        ExampleApp.main(args);
+    }
 
 }
